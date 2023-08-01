@@ -1,0 +1,126 @@
+tags:
+  - name: USER
+    description: (User related APIs)
+paths:
+  /api/v1/users/login:
+    post:
+      tags:
+        - USER
+      summary: Onboarding
+      description: Allows user to login to Ad management app
+      security:
+        - BasicAuth: []
+      requestBody:
+        description: Add valid user credential
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string,
+                  example: shardul01
+                  description: username of the user
+                password:
+                  type: string
+                  example: Shardul@123
+                  description: User password
+                deviceType:
+                  type: string
+                  example: WEB
+      responses:
+        "200":
+          description: Successful operation
+        "403":
+          description: Unauthorized
+        "404":
+          description: Not found
+        "400":
+          description: Validation exception
+  /api/v1/users/signup:
+    post:
+      tags:
+        - USER
+      summary: Onboarding
+      description: Allows user to Signup on Ad management
+      security:
+        - BasicAuth: []
+      requestBody:
+        description: Add valid user details
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string,
+                  example: shardul01
+                  description: username of the user, must be unique for identification
+                password:
+                  type: string
+                  example: Shardul@123
+                  description: User password
+                name:
+                  type: string
+                  example: Shardul Singh
+                  description: Complete name of the user
+                email:
+                  type: string
+                  example: shardul@yopmail.com
+                  description: Valid Email ID, unique
+                dob:
+                  type: string
+                  example: "2000-01-21"
+                  description: Date of Birth, format (YYYY-MM-DD)
+                gender:
+                  type: string
+                  enum: 
+                    - MALE
+                    - FEMALE
+                phone:
+                  type: string
+                  example: 9838392091
+                  description: Valid Indian Phone Number (10 digits)
+      responses:
+        "200":
+          description: Successful operation
+        "403":
+          description: Unauthorized
+        "404":
+          description: Not found
+        "400":
+  /api/v1/users/view-profile/{userId}:
+    get:
+      tags:
+        - USER
+      summary: To see complete profile
+      description: Allows user to view his/her or other user profile on social app
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: userId
+          schema: 
+            type: string
+          required: true
+          description: Valid User objectId
+      responses:
+        "200":
+          description: Successful operation
+        "403":
+          description: Unauthorized
+        "404":
+          description: Not found
+        "400":
+          description: Validation exception
+# components:
+#   schemas:
+#     create-post-entity:
+#       type: object
+#       properties:
+#         caption:
+#           type: string
+#           example: My first post
+#           description: caption to the post
