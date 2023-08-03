@@ -6,27 +6,26 @@ import { SWAGGER_OPTIONS } from "./constants/constants";
 import swaggerJSDoc from "swagger-jsdoc";
 import { createClient } from "redis";
 import { appRoutes } from "./api/api.routes";
-import bodyParser from "body-parser";
 import { sequelize } from "./database/postgres/postgres.db";
 
 dotenv.config();
-
 let connectionData: any = {
-  port: process.env.REDIS_PORT || 6380,
-  host: "localhost",
+  port: process.env.REDIS_PORT,
+  host: "myRedis",
   index: 0,
-  password: "myPassword"
+  password: "myPassword",
 };
-
 
 //Base class
 class App {
   public client = createClient(connectionData);
   private app: Express = express();
-  private port:any = process.env.PORT||3000;
-  private hostname = process.env.HOST || "127.0.0.1";
+  private port: any = process.env.PORT || 3000;
+  private hostname = process.env.HOST || "localhost";
 
   constructor() {
+    console.log({ port: this.port });
+    console.log({ host: this.hostname });
     this.startApp();
   }
 
@@ -63,7 +62,7 @@ class App {
       await sequelize.authenticate();
       // sequelize.sync();
     } catch (error) {
-      console.error("MongoDB connection error:", error);
+      console.error("SQL connection error:", error);
     }
   }
 

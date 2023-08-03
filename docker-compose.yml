@@ -1,0 +1,19 @@
+version: "3"
+services:
+  myRedis:
+    image: "redis"
+    ports: 
+      - "63779:6379"
+
+  myPostgres:
+    image: "postgres"
+    environment:
+      POSTGRES_DB: "db"
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+    ports: 
+      - "54332:5432"
+
+  application:
+    image: "8583af10ddfb"
+    ports: 
+      - "8000:8000"

@@ -1,13 +1,13 @@
 // database.js
 
-import { Sequelize } from 'sequelize';
+import { Sequelize } from "sequelize";
+import dotenv from "dotenv";
 
-const sequelize = new Sequelize('AdManagementDev', 'postgres', 'myPassword', {
-  host: 'localhost',
-  dialect: 'postgres', // Replace with your database dialect (e.g., mysql, sqlite)
-  // ... other database configurations
+dotenv.config();
+const sequelize = new Sequelize("AdManagementDev", "postgres", "myPassword", {
+  host: "myPostgres",
+  dialect: "postgres",
+  // port: Number(process.env.SQL_PORT),
 });
-
-
 
 export { sequelize };
